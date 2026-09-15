@@ -7,6 +7,23 @@ LumGram is a browser extension that customizes Instagram Web with themes, local 
 **Current version:** 1.3.3  
 **Developed by:** MADBLOX252
 
+## How to install:
+# Download the zip
+<img width="511" height="452" alt="{12F6004C-47F1-4C0F-B595-C745DC50BD7E}" src="https://github.com/user-attachments/assets/36bbac13-0cdb-4dc9-b13a-8743a190750d" />
+Click on code, Download zip, and Extract it's contents
+<img width="636" height="239" alt="{A998725B-566C-4D1E-BA73-41E3C86181EA}" src="https://github.com/user-attachments/assets/fd06fdf3-b7d8-4831-af21-b29e1b31b4ef" />
+Save it to a location in where you won't delete it (Documents)
+Open Chrome, and click on manage extentions
+<img width="348" height="584" alt="image (1)" src="https://github.com/user-attachments/assets/c17b365b-6567-44c2-a703-75463b76fc71" />
+On top, turn on developer mode, and load unpacked.
+<img width="1365" height="198" alt="{31E5942D-8D11-4C37-845F-C3433EEDFC4C}" src="https://github.com/user-attachments/assets/f7cdfad3-0c1f-4efb-b743-f756170fdd9b" />
+Select the 'LumGram' Folder, pin the extention, for easier use!
+Now enjoy instagram web!
+
+
+
+
+
 ---
 
 ## ✨ Features
