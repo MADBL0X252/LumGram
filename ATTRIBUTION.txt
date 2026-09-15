@@ -1,0 +1,9 @@
+LumGram: Instagram adaptation requested for MADBLOX252, based on the user-provided Lumcord project.
+
+Some classic palette color definitions originate from Discord Web Plus 1.9.4, supplied by the user as Discord.zip. Original project attribution: Discord Web Plus © 2026, x1337 HQ. The original archive states that modification and redistribution require prior written permission. This adaptation does not grant redistribution rights to the original work; obtain any required permission before distribution.
+
+The LumGram Instagram adapter, dashboard modifications, camera-mark assets, and newer palette collection were created for this customization. No original Discord branding/icon assets are included in LumGram.
+
+Instagram and Meta are trademarks of their respective owners. This is an independent local browser customization, not an official Instagram/Meta product. It is not affiliated with, endorsed by, or sponsored by Instagram, Meta, or Discord.
+
+Bundled font families: Inter, Roboto, Nunito, Montserrat, Outfit, Source Sans 3, Lora, and JetBrains Mono. Fonts are redistributed unmodified under their included SIL Open Font License notices in assets/fonts/. See FONTS.md for upstream sources.

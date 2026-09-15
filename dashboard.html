@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LumGram</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <div id="ambientImage"></div>
+      <div id="ambientTint"></div>
+    </div>
+    <main class="container">
+      <header class="header">
+        <div class="brand">
+          <img src="assets/img/lumgram-48.png" width="42" height="42" alt="" />
+          <div>
+            <h1>LumGram<span class="brand-dot">.</span></h1>
+            <p>A new mood for your scroll.</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="icon-button"
+          id="openFull"
+          title="Open in a full tab"
+          aria-label="Open in a full tab"
+        >
+          ↗
+        </button>
+      </header>
+      <section
+        class="card connection-card"
+        id="connectionCard"
+        aria-label="Instagram connection"
+      >
+        <div class="row">
+          <span class="eyebrow">INSTAGRAM CONNECTION</span
+          ><span id="connectionVersion" class="micro-pill">v1.3.3</span>
+        </div>
+        <h2 id="connectionHeadline">Checking Instagram…</h2>
+        <p id="connectionResult" class="quiet" role="status">
+          Checking whether the page script and styling are active.
+        </p>
+        <div id="instagramTargetRow" hidden>
+          <label for="instagramTarget" class="field-label"
+            >Instagram tab to customize</label
+          ><select id="instagramTarget"></select>
+        </div>
+        <div class="button-row">
+          <button type="button" id="repairConnection" class="primary-button">
+            Connect &amp; apply</button
+          ><button type="button" id="checkConnection">Check connection</button>
+        </div>
+        <details class="connection-details">
+          <summary>Troubleshooting</summary>
+          <p class="quiet">
+            Allow Instagram in the extension’s Site access settings. After an
+            update, reload the extension and refresh Instagram. Do not uninstall
+            or clear storage.
+          </p>
+          <div class="button-row">
+            <button type="button" id="rescanPage">Rescan page</button
+            ><button type="button" id="reloadInstagram">
+              Reload Instagram
+            </button>
+          </div>
+          <button
+            type="button"
+            class="subtle-button"
+            id="openExtensionSettings"
+          >
+            Open extension settings
+          </button>
+          <button type="button" class="subtle-button" id="copyDiagnostics">
+            Copy diagnostics
+          </button>
+          <p class="quiet" id="diagnosticHint">
+            This report contains browser/version and styling status only—not
+            messages, account names, or chat links.
+          </p>
+          <textarea
+            id="connectionDiagnostics"
+            rows="8"
+            readonly
+            aria-label="Connection diagnostics"
+          ></textarea>
+        </details>
+      </section>
+      <section class="card scope-card" aria-label="Appearance destination">
+        <div class="row">
+          <span class="eyebrow">APPEARANCE DESTINATION</span
+          ><span id="scopeStatus" class="micro-pill">SITE-WIDE</span>
+        </div>
+        <label for="appearanceScope" class="field-label">Customize</label
+        ><select id="appearanceScope">
+          <option>Site-wide appearance</option>
+        </select>
+        <p class="quiet" id="scopeDescription"></p>
+        <div class="button-row">
+          <button type="button" id="customizeCurrentChat">
+            Customize current chat
+          </button>
+        </div>
+        <p class="quiet" id="currentChatHint"></p>
+        <details class="chat-link-details">
+          <summary>Add a chat by link</summary>
+          <label for="chatLink" class="field-label"
+            >Instagram conversation URL or thread ID</label
+          ><input
+            type="text"
+            id="chatLink"
+            placeholder="https://www.instagram.com/direct/t/…"
+          /><button id="addChatProfile" type="button" class="subtle-button">
+            Create chat appearance
+          </button>
+        </details>
+        <div id="chatScopeControls" hidden>
+          <label for="chatLocalName" class="field-label"
+            >Private label for this chat</label
+          ><input
+            id="chatLocalName"
+            maxlength="64"
+            type="text"
+            placeholder="A name only you see"
+          />
+          <div class="button-row">
+            <button class="primary-button" id="saveChatProfile" type="button">
+              Save chat settings</button
+            ><button id="resetChatProfile" type="button">
+              Use site-wide look
+            </button>
+          </div>
+          <p class="quiet">
+            Changes also auto-save only to this chat. The Active switch,
+            animations, and navigation mark are site-wide.
+          </p>
+        </div>
+      </section>
+      <section class="card background-destination">
+        <span class="eyebrow">BACKGROUND FOR THIS DESTINATION</span>
+        <label class="field-label" for="backgroundKind">Background type</label>
+        <select id="backgroundKind">
+          <option value="theme">Selected theme</option>
+          <option value="color">Solid color</option>
+          <option value="image">Custom image</option>
+        </select>
+        <div id="solidColorRow" class="field-grid" hidden>
+          <label
+            >Background color<input
+              id="surfaceColor"
+              type="color"
+              value="#18181b" /></label
+          ><span class="hex-readout" id="surfaceColorHex">#18181b</span>
+        </div>
+        <p class="quiet" id="backgroundKindHint"></p>
+        <div id="navigationOpacityRow" hidden>
+          <div class="row">
+            <label id="destinationOpacityLabel" for="navigationOpacity"
+              >Background opacity</label
+            ><output id="navigationOpacityValue">55%</output>
+          </div>
+          <input
+            type="range"
+            id="navigationOpacity"
+            min="0"
+            max="95"
+            step="1"
+            value="55"
+          />
+          <p class="quiet" id="destinationOpacityHint">
+            0% is clear; 95% is nearly opaque. Color and image layers fade
+            together; icons and text stay crisp. Site/chat opacity never changes
+            this slider.
+          </p>
+        </div>
+      </section>
+      <section class="core card" aria-label="Core controls">
+        <div class="row">
+          <div>
+            <span class="eyebrow">THE ESSENTIALS</span>
+            <h2>Make yourself at home.</h2>
+          </div>
+          <a
+            class="text-link"
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open Instagram"
+            >Instagram ↗</a
+          >
+        </div>
+        <div class="row control-row">
+          <label for="enableToggle"
+            ><span class="control-icon">◉</span>
+            <span id="enableLabel">Active</span></label
+          ><label class="switch"
+            ><input
+              type="checkbox"
+              id="enableToggle"
+              aria-label="Enable LumGram" /><span></span
+          ></label>
+        </div>
+        <div class="row control-row">
+          <label for="themeStyleToggle"
+            ><span class="control-icon">◐</span>
+            <span id="themeStyleLabel">Dark mode</span></label
+          ><label class="switch"
+            ><input
+              type="checkbox"
+              id="themeStyleToggle"
+              aria-label="Dark mode" /><span></span
+          ></label>
+        </div>
+        <div class="row control-row">
+          <label for="animationsToggle"
+            ><span class="control-icon">⌁</span> Subtle animations</label
+          >
+          <label class="switch"
+            ><input
+              type="checkbox"
+              id="animationsToggle"
+              aria-label="Subtle animations" /><span></span
+          ></label>
+        </div>
+        <p class="quiet">
+          Appearance changes apply to the selected destination. Animations are
+          site-wide and respect reduced-motion preferences.
+        </p>
+      </section>
+      <section class="accordion-item card open" data-panel="theme">
+        <h2>
+          <button
+            class="accordion-header"
+            aria-expanded="true"
+            aria-controls="themeBody"
+          >
+            <span
+              ><span class="section-number">01</span> Theme studio
+              <span class="count-badge">71</span></span
+            ><span class="chevron">⌄</span>
+          </button>
+        </h2>
+        <div class="accordion-body" id="themeBody">
+          <p class="section-description">
+            A mood for every moment. 50 new palettes, 21 renamed classics, and
+            room for your own.
+          </p>
+          <div
+            class="theme-preview"
+            id="themePreview"
+            aria-label="Theme preview"
+          >
+            <div class="mock-sidebar"><i></i><i></i><i></i><i></i></div>
+            <div class="mock-chat">
+              <span class="eyebrow">A SPACE THAT FEELS LIKE YOU</span
+              ><strong id="previewName">Moonstone</strong>
+              <div class="mock-message">
+                <b></b><span><i></i><i></i></span>
+              </div>
+              <div class="mock-input">Message your world…<span>＋</span></div>
+            </div>
+          </div>
+          <div class="row preview-meta">
+            <span id="themeCount">71 built-in presets</span
+            ><span class="micro-pill" id="sourceLabel">LUMGRAM COLLECTION</span>
+          </div>
+          <label class="field-label" for="themeSelect">Selected preset</label
+          ><select id="themeSelect" name="theme"></select>
+          <label class="search"
+            ><span aria-hidden="true">⌕</span
+            ><input
+              type="search"
+              id="themeSearch"
+              placeholder="Find your next mood…"
+              aria-label="Search theme presets"
+          /></label>
+          <div
+            id="presetGrid"
+            class="preset-grid"
+            aria-label="Theme presets"
+          ></div>
+          <button class="subtle-button wide" id="showMore" type="button">
+            Show more palettes
+          </button>
+          <div class="button-row">
+            <button type="button" id="newPreset" class="primary-button">
+              ＋ Create preset</button
+            ><button type="button" id="editPreset">Edit a copy</button
+            ><button type="button" id="deletePreset" class="danger" hidden>
+              Delete
+            </button>
+          </div>
+          <form id="presetEditor" class="editor" hidden>
+            <div class="row">
+              <h3 id="editorTitle">Your new preset</h3>
+              <button
+                type="button"
+                id="closeEditor"
+                class="icon-button"
+                aria-label="Close preset editor"
+              >
+                ×
+              </button>
+            </div>
+            <label class="field-label" for="presetName">Preset name</label
+            ><input
+              type="text"
+              id="presetName"
+              maxlength="48"
+              required
+              placeholder="Give this mood a name"
+            />
+            <div class="color-fields">
+              <label>Start<input type="color" id="presetColor1" /></label
+              ><label>Middle<input type="color" id="presetColor2" /></label
+              ><label>End<input type="color" id="presetColor3" /></label
+              ><label>Accent<input type="color" id="presetAccent" /></label>
+            </div>
+            <div class="field-grid">
+              <label
+                >Gradient<select id="presetKind">
+                  <option value="linear">Linear</option>
+                  <option value="radial">Radial glow</option>
+                </select></label
+              ><label
+                >Angle <output id="presetAngleValue">135°</output
+                ><input
+                  type="range"
+                  id="presetAngle"
+                  min="0"
+                  max="360"
+                  value="135"
+              /></label>
+            </div>
+            <div
+              id="editorPreview"
+              class="editor-preview"
+              aria-label="Draft theme preview"
+            >
+              <span>Your next mood</span>
+            </div>
+            <label class="check-label"
+              ><input type="checkbox" id="saveBackground" /> Include current
+              background and its adjustments</label
+            >
+            <p class="quiet">
+              Saved locally in this browser. Built-in presets stay untouched;
+              editing one creates your own copy.
+            </p>
+            <div class="button-row">
+              <button type="submit" class="primary-button" id="savePreset">
+                Save & apply</button
+              ><button type="button" id="cancelPreset">Cancel</button>
+            </div>
+          </form>
+          <div class="section-divider"></div>
+          <h3>Navigation mark</h3>
+          <p class="section-description">
+            Keep Instagram’s logo, or give it a new look.
+          </p>
+          <div
+            id="icons"
+            class="icons-grid"
+            aria-label="Instagram navigation mark"
+          ></div>
+        </div>
+      </section>
+      <section class="accordion-item card" data-panel="bg">
+        <h2>
+          <button
+            class="accordion-header"
+            aria-expanded="false"
+            aria-controls="bgBody"
+          >
+            <span><span class="section-number">02</span> Custom background</span
+            ><span class="chevron">⌄</span>
+          </button>
+        </h2>
+        <div class="accordion-body" id="bgBody" hidden>
+          <p class="section-description">
+            Bring your own view. Fine-tune the image, light, and the way it
+            fills your space.
+          </p>
+          <label for="customBgInput" class="upload-zone"
+            ><span class="upload-symbol">＋</span
+            ><strong id="uploadLabel">Choose an image</strong
+            ><span>PNG, JPEG, WebP or GIF · up to 15 MB</span
+            ><span class="quiet">GIFs are saved as a still image.</span></label
+          ><input
+            type="file"
+            id="customBgInput"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+            class="visually-hidden"
+          />
+          <div class="bg-preview" id="customBgPreviewWrap" hidden>
+            <img id="customBgPreview" alt="Your custom background" />
+            <div id="customBgOverlay"></div>
+          </div>
+          <div class="row control-row">
+            <label for="useCustomBgToggle">Use custom background</label
+            ><label class="switch"
+              ><input
+                id="useCustomBgToggle"
+                type="checkbox"
+                disabled /><span></span
+            ></label>
+          </div>
+          <div class="button-row">
+            <button type="button" id="removeCustomBg" disabled>
+              Remove image</button
+            ><button type="button" id="resetBackground">
+              Reset adjustments
+            </button>
+          </div>
+          <fieldset id="bgControls">
+            <legend class="eyebrow">COMPOSITION</legend>
+            <div class="field-grid">
+              <label
+                >Image fit<select id="bgFit">
+                  <option value="cover">Fill / cover</option>
+                  <option value="contain">Fit inside</option>
+                  <option value="stretch">Stretch</option>
+                </select></label
+              ><label
+                >Canvas color<input type="color" id="bgBase" value="#161616"
+              /></label>
+            </div>
+            <div id="compositionRanges"></div>
+            <legend class="eyebrow group-title">LIGHT & TEXTURE</legend>
+            <div id="imageRanges"></div>
+            <div class="field-grid">
+              <label
+                >Overlay tint<input
+                  type="color"
+                  id="overlayColorPicker"
+                  value="#000000" /></label
+              ><label
+                >Hex color<span id="overlayColorHex" class="hex-readout"
+                  >#000000</span
+                ></label
+              >
+            </div>
+          </fieldset>
+          <fieldset id="opacityControls">
+            <legend class="eyebrow">PANEL TRANSPARENCY</legend>
+            <div id="overlayRange"></div>
+            <p class="quiet">
+              Opacity applies only to the selected site/chat appearance.
+              Navigation has its own slider. 0% reveals the background; 100% is
+              opaque. Image tint is separate.
+            </p>
+            <div class="row control-row">
+              <label for="advancedModeToggle">Individual panel opacity</label
+              ><label class="switch"
+                ><input id="advancedModeToggle" type="checkbox" /><span></span
+              ></label>
+            </div>
+            <div id="advancedPanel" hidden>
+              <p class="quiet">
+                Individual mode overrides the overall slider, like the original
+                extension. Each slider controls a detected Instagram surface
+                group; nested surfaces share their group. Turn this mode off to
+                adjust all panels together.
+              </p>
+              <div id="panelRanges"></div>
+              <button type="button" id="advResetBtn" class="subtle-button">
+                Reset panel opacity
+              </button>
+            </div>
+          </fieldset>
+          <p class="quiet">
+            Opacity works with both theme presets and custom images. Photos,
+            videos, and Stories are not filtered. Large background images are
+            optimized locally; nothing is uploaded.
+          </p>
+        </div>
+      </section>
+      <section class="accordion-item card" data-panel="fonts">
+        <h2>
+          <button
+            class="accordion-header"
+            type="button"
+            aria-expanded="false"
+            aria-controls="fontBody"
+          >
+            <span
+              ><span class="section-number">03</span> Fonts & typography
+              <span class="count-badge">8</span></span
+            ><span class="chevron">⌄</span>
+          </button>
+        </h2>
+        <div class="accordion-body" id="fontBody" hidden>
+          <p class="section-description">
+            Eight bundled fonts, or a font installed on your device. Personal
+            presets also remember your font choice.
+          </p>
+          <div id="fontControls"></div>
+        </div>
+      </section>
+      <div class="save-status" id="saveStatus" role="status" aria-live="polite">
+        Settings stay on this device.
+      </div>
+      <footer>
+        <span>Developed by: <strong>MADBLOX252</strong></span
+        ><span class="footer-mark" aria-hidden="true">L.</span>
+      </footer>
+    </main>
+    <script src="font-manager.js"></script>
+    <script src="themes.js"></script>
+    <script src="background-image.js"></script>
+    <script src="panel-opacity.js"></script>
+    <script src="scope-model.js"></script>
+    <script src="scope-store.js"></script>
+    <script src="connection-dashboard.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
