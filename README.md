@@ -2,7 +2,7 @@
 
 ### Your Instagram, your style.
 
-LumGram is a browser extension that customizes Instagram Web with themes, local backgrounds, adjustable opacity, and fonts—with separate appearance settings for the website, navigation bar, and individual chats.
+LumGram is a browser extension that customizes Instagram Web with themes, local backgrounds, adjustable opacity, and fonts with separate appearance settings for the website, navigation bar, and individual chats.
 
 **Current version:** 1.3.3  
 **Developed by:** MADBLOX252
